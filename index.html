@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шпион Clash Royale</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">CR</div>
+                    <div class="logo-text">Spy Game</div>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="nav-link active" data-page="home">Главная</a>
+                    <a href="#" class="nav-link" data-page="mode1">Режим 1</a>
+                    <a href="#" class="nav-link" data-page="mode2">Режим 2</a>
+                    <a href="#" class="nav-link" data-page="mode3">Режим 3</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <h1 class="page-title">Шпион Clash Royale</h1>
+            <p class="page-subtitle">
+                Увлекательная социальная игра для компании друзей. Определите шпиона, 
+                который не знает карту, задавая наводящие вопросы!
+            </p>
+            
+            <div class="game-modes">
+                <div class="mode-card">
+                    <div class="mode-icon">1</div>
+                    <h3 class="mode-title">На одном устройстве</h3>
+                    <p class="mode-description">
+                        Все игроки по очереди нажимают на экран, чтобы узнать свою карту. 
+                        Идеально для игры в кругу друзей с одним телефоном.
+                    </p>
+                    <button class="mode-btn" data-mode="1">Играть</button>
+                </div>
+                
+                <div class="mode-card">
+                    <div class="mode-icon">2</div>
+                    <h3 class="mode-title">По комнатам (у каждого свой телефон)</h3>
+                    <p class="mode-description">
+                        Создайте комнату и пригласите друзей. Каждый видит свою карту на своём устройстве, 
+                        общение происходит в реальной жизни.
+                    </p>
+                    <button class="mode-btn" data-mode="2">Играть</button>
+                </div>
+                
+                <div class="mode-card">
+                    <div class="mode-icon">3</div>
+                    <h3 class="mode-title">С онлайн-чатом</h3>
+                    <p class="mode-description">
+                        Играйте с друзьями онлайн! Создайте комнату, пригласите друзей и общайтесь 
+                        встроенном чате, чтобы вычислить шпиона.
+                    </p>
+                    <button class="mode-btn" data-mode="3">Играть</button>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3>Как играть?</h3>
+                <ol>
+                    <li>Выберите режим игры в зависимости от того, как хотите играть</li>
+                    <li>Введите имена игроков (от 3 до 5 игроков)</li>
+                    <li>Система случайно выберет карту и назначит шпиона</li>
+                    <li>Мирные игроки видят карту, шпион не знает, что за карта</li>
+                    <li>Игроки задают друг другу наводящие вопросы о карте</li>
+                    <li>Цель мирных игроков - вычислить шпиона, цель шпиона - угадать карту</li>
+                    <li>В конце раунда проходит голосование, кто является шпионом</li>
+                </ol>
+                
+                <h3>Правила для вопросов:</h3>
+                <ul>
+                    <li>Нельзя прямо называть карту или её элементы</li>
+                    <li>Можно задавать вопросы о свойствах, внешнем виде, использовании в игре</li>
+                    <li>Пример вопроса: "Эта карта дорогая по эликсиру?" или "Эта карта летающая?"</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Mode 1: Single Device -->
+        <div class="page" id="mode1">
+            <h1 class="page-title">Режим 1: На одном устройстве</h1>
+            <p class="page-subtitle">
+                Передавайте устройство по кругу. Каждый игрок нажимает на кнопку, чтобы узнать свою роль.
+            </p>
+            
+            <div id="mode1-setup" class="game-screen">
+                <h2 class="text-center mb-30">Настройка игры</h2>
+                
+                <div class="player-setup">
+                    <input type="text" class="player-input" id="player1" placeholder="Игрок 1">
+                    <input type="text" class="player-input" id="player2" placeholder="Игрок 2">
+                    <input type="text" class="player-input" id="player3" placeholder="Игрок 3">
+                    <input type="text" class="player-input hidden" id="player4" placeholder="Игрок 4">
+                    <input type="text" class="player-input hidden" id="player5" placeholder="Игрок 5">
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-secondary" id="add-player">Добавить игрока (до 5)</button>
+                    <button class="btn" id="start-mode1">Начать игру</button>
+                </div>
+            </div>
+            
+            <div id="mode1-game" class="game-screen hidden">
+                <div id="role-reveal" class="role-reveal">
+                    <h2 class="role-title" id="player-turn">Игрок 1, ваша очередь</h2>
+                    <p class="role-card">Нажмите на кнопку, чтобы узнать свою роль</p>
+                    <button class="btn btn-warning" id="reveal-role">Узнать роль</button>
+                </div>
+                
+                <div id="role-result" class="role-reveal hidden">
+                    <h2 class="role-title" id="player-name">Игрок 1</h2>
+                    <div class="role-image" id="card-image">
+                        <img src="" alt="Карта" id="card-img">
+                    </div>
+                    <div id="spy-result" class="hidden">
+                        <div class="role-spy">Вы шпион!</div>
+                        <p>Вы не знаете, какая карта у мирных игроков. Ваша задача - угадать её, слушая вопросы игроков.</p>
+                    </div>
+                    <div id="peaceful-result" class="hidden">
+                        <p class="role-card">Ваша карта: <span id="card-name">Торнадо</span></p>
+                        <p>Вы мирный игрок. Задавайте вопросы, чтобы вычислить шпиона, но не раскрывайте карту прямо.</p>
+                    </div>
+                    <button class="btn mt-30" id="next-player">Следующий игрок</button>
+                </div>
+                
+                <div id="mode1-discussion" class="hidden mt-30">
+                    <h2 class="text-center mb-30">Обсуждение</h2>
+                    <p class="text-center mb-30">Все игроки увидели свои роли. Начинайте задавать вопросы по очереди!</p>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" id="show-card-list">Показать все карты</button>
+                        <button class="btn btn-warning" id="start-voting">Начать голосование</button>
+                    </div>
+                </div>
+                
+                <div id="mode1-voting" class="hidden mt-30">
+                    <h2 class="text-center mb-30">Голосование: Кто шпион?</h2>
+                    <div id="voting-players"></div>
+                    <button class="btn btn-success mt-30" id="submit-votes">Подвести итоги</button>
+                </div>
+                
+                <div id="mode1-results" class="hidden mt-30">
+                    <h2 class="text-center mb-30">Результаты игры</h2>
+                    <div id="results-content"></div>
+                    <button class="btn mt-30" id="restart-mode1">Новая игра</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mode 2: Room Based (Multi-device) -->
+        <div class="page" id="mode2">
+            <h1 class="page-title">Режим 2: По комнатам</h1>
+            <p class="page-subtitle">
+                Создайте комнату и поделитесь ID с друзьями. Каждый игрок заходит со своего устройства.
+            </p>
+            
+            <div class="room-container">
+                <div class="room-create">
+                    <h2 class="text-center mb-30">Создать комнату</h2>
+                    
+                    <div class="player-setup">
+                        <input type="text" class="player-input" id="host-name" placeholder="Ваше имя">
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-full" id="create-room">Создать комнату</button>
+                    </div>
+                    
+                    <div id="room-created" class="hidden">
+                        <h3 class="text-center mt-30">Комната создана!</h3>
+                        <p class="text-center">Поделитесь этим ID с друзьями:</p>
+                        <div class="room-id" id="room-id-display">ABCD</div>
+                        
+                        <div class="players-list">
+                            <h4>Игроки в комнате:</h4>
+                            <div id="room-players"></div>
+                        </div>
+                        
+                        <button class="btn btn-full mt-30" id="start-room-game">Начать игру</button>
+                    </div>
+                </div>
+                
+                <div class="room-join">
+                    <h2 class="text-center mb-30">Присоединиться к комнате</h2>
+                    
+                    <input type="text" class="player-input mb-20" id="join-name" placeholder="Ваше имя">
+                    <input type="text" class="player-input mb-20" id="room-code" placeholder="ID комнаты">
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-full" id="join-room">Присоединиться</button>
+                    </div>
+                    
+                    <div id="joined-room" class="hidden">
+                        <h3 class="text-center mt-30">Вы присоединились!</h3>
+                        <p class="text-center">Ожидайте начала игры от создателя комнаты</p>
+                        
+                        <div class="players-list">
+                            <h4>Игроки в комнате:</h4>
+                            <div id="joined-players"></div>
+                        </div>
+                        
+                        <div id="player-role-info" class="hidden mt-30">
+                            <h3 class="text-center">Ваша роль</h3>
+                            <div id="player-role-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mode 3: Online Chat -->
+        <div class="page" id="mode3">
+            <h1 class="page-title">Режим 3: С онлайн-чатом</h1>
+            <p class="page-subtitle">
+                Создайте комнату, пригласите друзей и общайтесь в чате, чтобы вычислить шпиона!
+            </p>
+            
+            <div id="mode3-setup" class="room-container">
+                <div class="room-create">
+                    <h2 class="text-center mb-30">Создать комнату с чатом</h2>
+                    
+                    <input type="text" class="player-input mb-20" id="chat-host-name" placeholder="Ваше имя">
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-full" id="create-chat-room">Создать комнату</button>
+                    </div>
+                    
+                    <div id="chat-room-created" class="hidden">
+                        <h3 class="text-center mt-30">Комната с чатом создана!</h3>
+                        <p class="text-center">Поделитесь этим ID с друзьями:</p>
+                        <div class="room-id" id="chat-room-id">EFGH</div>
+                        
+                        <div class="players-list">
+                            <h4>Игроки в комнате:</h4>
+                            <div id="chat-room-players"></div>
+                        </div>
+                        
+                        <button class="btn btn-full mt-30" id="start-chat-game">Начать игру в чате</button>
+                    </div>
+                </div>
+                
+                <div class="room-join">
+                    <h2 class="text-center mb-30">Присоединиться к комнате с чатом</h2>
+                    
+                    <input type="text" class="player-input mb-20" id="chat-join-name" placeholder="Ваше имя">
+                    <input type="text" class="player-input mb-20" id="chat-room-code" placeholder="ID комнаты">
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-full" id="join-chat-room">Присоединиться</button>
+                    </div>
+                    
+                    <div id="chat-joined-room" class="hidden">
+                        <h3 class="text-center mt-30">Вы в комнате с чатом!</h3>
+                        
+                        <div class="players-list">
+                            <h4>Игроки в комнате:</h4>
+                            <div id="chat-joined-players"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="mode3-game" class="game-screen hidden">
+                <div class="room-container">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message other">
+                                <div class="message-sender">Система</div>
+                                Добро пожаловать в игру! Общайтесь, чтобы вычислить шпиона.
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" class="chat-input" id="chat-input" placeholder="Введите сообщение...">
+                            <button class="chat-send" id="chat-send">Отправить</button>
+                        </div>
+                    </div>
+                    
+                    <div id="mode3-game-info">
+                        <h3 class="mb-20">Информация об игре</h3>
+                        <div id="player-card-info" class="mb-30">
+                            <p>Ваша роль: <span id="player-role-text">Мирный игрок</span></p>
+                            <p>Ваша карта: <span id="player-card-text">Торнадо</span></p>
+                        </div>
+                        
+                        <div id="mode3-voting" class="hidden">
+                            <h4 class="mb-20">Голосование: Кто шпион?</h4>
+                            <div id="chat-voting-players"></div>
+                            <button class="btn btn-success mt-20" id="submit-chat-vote">Проголосовать</button>
+                        </div>
+                        
+                        <div id="mode3-results" class="hidden">
+                            <h4 class="mb-20">Результаты</h4>
+                            <div id="chat-results-content"></div>
+                        </div>
+                        
+                        <button class="btn btn-secondary mt-30" id="show-cards-mode3">Показать все карты</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cards Modal -->
+        <div id="cards-modal" class="game-screen hidden">
+            <h2 class="text-center mb-30">Все карты Clash Royale</h2>
+            <div class="cards-grid" id="all-cards-grid"></div>
+            <button class="btn btn-full mt-30" id="close-cards-modal">Закрыть</button>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>Clash Royale Spy Game &copy; 2023 | Игра для компании друзей</p>
+            <p class="mt-20">Все изображения карт принадлежат Supercell</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+  </html>
